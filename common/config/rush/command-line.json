@@ -1,0 +1,32 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/rush/v5/command-line.schema.json",
+  "commands": [
+    {
+      "commandKind": "bulk",
+      "name": "build",
+      "summary": "Run build for each app in the project.",
+      "description": "This command runs build for each app in the project in the repository.",
+      "enableParallelism": true,
+      "allowWarningsInSuccessfulBuild": true,
+      "ignoreMissingScript": true
+    },
+    {
+      "commandKind": "bulk",
+      "name": "test",
+      "summary": "Run tests for each app in the project.",
+      "description": "This command runs tests for each app in the project in the repository.",
+      "enableParallelism": true,
+      "allowWarningsInSuccessfulBuild": true,
+      "ignoreMissingScript": true
+    },
+    {
+      "commandKind": "bulk",
+      "name": "lint",
+      "summary": "Run linting for each app in the project.",
+      "description": "This command runs linting for each app in the project in the repository.",
+      "enableParallelism": true,
+      "ignoreMissingScript": true
+    }
+  ],
+  "parameters": []
+}
