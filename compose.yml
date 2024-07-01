@@ -1,5 +1,10 @@
 # docker-compose.yaml
-version: "3.8"
+version: "3.9"
+
+volumes:
+  jenkins-data:
+
+
 services:
   jenkins:
     image: jenkins/jenkins:lts
@@ -9,3 +14,6 @@ services:
       - 8080:8080
       - 50000:50000
     container_name: jenkins
+    volumes:
+      - jenkins-data:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock #mount docker socket
