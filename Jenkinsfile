@@ -1,8 +1,6 @@
 pipeline {
     agent any
-    environment {
-        COMPOSE_VERSION = '1.29.2' // Specify the Docker Compose version
-    }
+    
     stages {
         
         stage('stage1checkout') {
@@ -16,9 +14,11 @@ pipeline {
         stage('Install Docker') {
             steps {
                 script {
-                    sh "curl -L https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose"
-                    sh 'chmod +x /usr/local/bin/docker-compose'
-                    sh 'docker-compose --version' // Verify Docker Compose installation
+                    // Install Docker on Debian/Ubuntu
+                    sh 'apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin'
+                    
+                    // Verify Docker installation
+                    sh 'docker --version'
                 }
             }
         }
@@ -26,7 +26,7 @@ pipeline {
         stage('stage3'){
             steps {
                 echo 'build'
-                sh 'docker compose build'
+                sh 'docker-compose build'
             }
             
 
@@ -34,7 +34,7 @@ pipeline {
         stage('stage4'){
             steps{
                 echo 'up'
-                sh 'docker compose up'
+                sh 'docker-compose up'
 
             }
             
