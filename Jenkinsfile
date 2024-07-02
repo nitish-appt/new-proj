@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'docker-environment'  }
+    agent { label 'dockerenv'  }
    
     stages {
         
