@@ -26,7 +26,7 @@ pipeline {
         stage('stage3'){
             steps {
                 echo 'build'
-                sh 'docker-compose build'
+                sh 'docker compose build'
             }
             
 
@@ -34,7 +34,7 @@ pipeline {
         stage('stage4'){
             steps{
                 echo 'up'
-                sh 'docker-compose up'
+                sh 'docker compose up'
 
             }
             
