@@ -16,15 +16,13 @@ pipeline {
 
                 echo 'install if dependencies'
                 script {
-                    // Download Docker installation script
-                    sh 'curl -fsSL https://get.docker.com -o get-docker.sh'
-                    
-                    // Install Docker using the downloaded script
-                    sh 'sh get-docker.sh'
-                    
-                    // Verify Docker installation
-                    sh 'docker --version'
-                }
+                    // Pull a Docker image with Docker pre-installed
+                    docker.image('docker:stable').inside {
+                        // Run Docker commands inside the Docker container
+                        sh 'docker --version'
+                        sh 'docker pull hello-world'
+                        sh 'docker run hello-world'
+                    }
 
             }
             
