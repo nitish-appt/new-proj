@@ -1,11 +1,6 @@
 pipeline {
     agent any
-    
-     environment {
-        DOCKER_VERSION = '20.10.7'  // Specify the Docker version to install (optional)
-        HOME = "/home/jenkins"      // Define Jenkins user's home directory
-    }
-   
+     
     stages {
         
         stage('stage1checkout') {
@@ -19,13 +14,12 @@ pipeline {
         stage('Install Docker') {
             steps {
                 script {
-                    // Download Docker installation script
-                    sh 'curl -fsSL https://get.docker.com -o get-docker.sh'
+                    // Install Docker on Debian/Ubuntu
+                    sh 'apt-get update'
+                    sh 'apt-get install -y docker.io'
                     
-                    // Install Docker using the downloaded script
-                    dir("$HOME") {
-                        sh 'sh get-docker.sh'
-                    }
+                    // Start Docker service
+                    sh 'service docker start'
                     
                     // Verify Docker installation
                     sh 'docker --version'
