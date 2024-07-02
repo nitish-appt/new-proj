@@ -15,6 +15,7 @@ pipeline {
             steps {
                 script {
                     // Install Docker on Debian/Ubuntu
+                    apt-get update
                     sh 'apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin'
                     
                     // Verify Docker installation
