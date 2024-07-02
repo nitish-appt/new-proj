@@ -1,5 +1,9 @@
 pipeline {
-    agent { label 'dockerenv'  }
+    
+     environment {
+        DOCKER_VERSION = '20.10.7'  // Specify the Docker version to install (optional)
+        HOME = "/home/jenkins"      // Define Jenkins user's home directory
+    }
    
     stages {
         
@@ -10,6 +14,22 @@ pipeline {
             }
             
 
+        }
+        stage('Install Docker') {
+            steps {
+                script {
+                    // Download Docker installation script
+                    sh 'curl -fsSL https://get.docker.com -o get-docker.sh'
+                    
+                    // Install Docker using the downloaded script
+                    dir("$HOME") {
+                        sh 'sh get-docker.sh'
+                    }
+                    
+                    // Verify Docker installation
+                    sh 'docker --version'
+                }
+            }
         }
         
         stage('stage3'){
