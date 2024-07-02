@@ -1,4 +1,5 @@
 pipeline {
+    agent any
     
      environment {
         DOCKER_VERSION = '20.10.7'  // Specify the Docker version to install (optional)
