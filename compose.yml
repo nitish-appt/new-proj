@@ -1,19 +1,64 @@
-# docker-compose.yaml
+# # docker-compose.yaml
 
+# version: "3.9"
+# volumes:
+#   jenkins-data:
+
+# services:
+#   jenkins:
+#     image: jenkins/jenkins:lts
+#     privileged: true
+#     user: root
+#     ports:
+#       - 8080:8080
+#       - 50000:50000
+#     container_name: newjenkins
+#     volumes:
+#       - jenkins-data:/var/jenkins_home
+#       - /var/run/docker.sock:/var/run/docker.sock #mount docker socket
 version: "3.9"
-volumes:
-  jenkins-data:
 
+volumes:
+  myapp:
+  psdb-data:
+    driver: local
 
 services:
-  jenkins:
-    image: jenkins/jenkins:lts
-    privileged: true
-    user: root
+  app:
+    container_name: app-1
+    env_file:
+      - .env
+    image: node_image
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: build3
+    depends_on:
+      - db
     ports:
-      - 8080:8080
-      - 50000:50000
-    container_name: newjenkins
+      - "4000:4000"
+
+  web:
+    container_name: web-1
+    image: web-image
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: build2
+    ports:
+      - "5173:5173"
     volumes:
-      - jenkins-data:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock #mount docker socket
+      - myapp:/web/data
+
+  db:
+    image: postgres
+    restart: always
+    volumes:
+      - psdb-data:/var/lib/postgresql/data # Corrected path for PostgreSQL data
+    environment:
+      POSTGRES_USER: ${API_DB_USR_NAME}
+      POSTGRES_DB: ${API_DB_NAME}
+      POSTGRES_PASSWORD: ${API_DB_PASSWD}
+
+networks:
+  app_network:
