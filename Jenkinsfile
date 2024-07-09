@@ -17,9 +17,9 @@ pipeline {
             steps {
                 echo 'build'
                 sh 'docker compose build'
-                sh 'docker compose up'
+                sh 'docker compose up -d'
                 echo 'done'
-                sh 'docker compose down'
+                
             }
             
 
