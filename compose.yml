@@ -39,7 +39,7 @@ services:
       - "4000:4000"
 
   web:
-    container_name: web-1
+    container_name: webcontainer
     image: web-image
     build:
       context: .
