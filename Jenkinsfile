@@ -25,6 +25,7 @@ pipeline {
         
         stage('stage5') {
             steps {
+                sh 'docker compose down'
                 echo 'clean up'
             }
         }
