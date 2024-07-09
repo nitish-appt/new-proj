@@ -6,13 +6,9 @@
 FROM node:18.12 as build1 
 
 WORKDIR /app 
-
 COPY ./apps/api/package.json . 
-
 RUN npm install -g pnpm 
-
 COPY ./apps/api . 
-
 RUN pnpm install 
 
 RUN pnpm run build 
