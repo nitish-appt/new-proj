@@ -18,6 +18,8 @@ pipeline {
                 echo 'build'
                 sh 'docker compose build'
                 sh 'docker compose up'
+                echo 'done'
+                sh 'docker compose down'
             }
             
 
@@ -25,7 +27,6 @@ pipeline {
         
         stage('stage5') {
             steps {
-                sh 'docker compose down'
                 echo 'clean up'
             }
         }
