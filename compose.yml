@@ -25,7 +25,6 @@ volumes:
 
 services:
   app:
-    
     env_file:
       - .env
     image: node_image
@@ -39,7 +38,6 @@ services:
       - "4000:4000"
 
   web:
-    
     image: web-image
     build:
       context: .
