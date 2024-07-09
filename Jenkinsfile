@@ -1,10 +1,6 @@
 pipeline {
     agent any
-    environment {
-        POSTGRES_USER: postgres 
-        POSTGRES_DB: db-test-generated-api
-        POSTGRES_PASSWORD: postgres 
-    }
+
     stages {
         
         stage('stage1checkout') {
